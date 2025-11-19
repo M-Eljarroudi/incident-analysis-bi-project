@@ -105,8 +105,8 @@ Deployment was performed to Power BI Premium and linked through an on premise da
 
 ## Final Dashboard (Static View)
 
-The finished dashboard is included in the repository as:
-Static-BI-dashboard.pdf
+The finished static BI dashboard is available here:
+[View Static BI Dashboard](https://github.com/M-Eljarroudi/incident-analysis-bi-project/blob/main/Static-BI-dashboard.pdf)
 
 This is the main visual deliverable of the project.  
 
@@ -136,17 +136,17 @@ These images document the SSAS and SSIS design.
 
 ### SSAS Measures
 
-![SSAS Measures](SSAS_measures.png)
+![SSAS Measures](SSAS_measures.PNG)
 
 ### SSIS Workflows
 
-![SSIS Dim Tables Workflow](SSIS_workflow_dim_tables.png)
+![SSIS Dim Tables Workflow](SSIS_workflow_dim_tables.PNG)
 
-![SSIS Dim Date Workflow](SSIS_workflow_dim_date.png)
+![SSIS Dim Date Workflow](SSIS_workflow_dim_date.PNG)
 
-![SSIS Dim Time Workflow](SSIS_workflow_dim_temps.png)
+![SSIS Dim Time Workflow](SSIS_workflow_dim_temps.PNG)
 
-![SSIS Fact Table Workflow](SSIS_workflow_fact_table.png)
+![SSIS Fact Table Workflow](SSIS_workflow_fact_table.PNG)
 
 ---
 
@@ -196,8 +196,8 @@ These findings guided recommendations for targeted support improvements, resourc
 - PBI_desktop_dashboard.jpg  
 - model_powerbi_service.jpg  
 - gateway_PBI_service.jpg  
-- SSAS - diagram.png  
-- SSAS - measures.png  
+- SSAS_diagram.PNG  
+- SSAS_measures.PNG  
 - SSIS workflow files (fact and dimension flows)
 
 ---
