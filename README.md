@@ -190,7 +190,7 @@ These findings guided recommendations for targeted support improvements, resourc
 
 ## Files Included in This Repository
 
-- star_schema_making_script.sql    
+- datawarehouse_script.sql    
 - Static-BI-dashboard.pdf  
 - PBI_service_dashboard.jpg  
 - PBI_desktop_dashboard.jpg  
