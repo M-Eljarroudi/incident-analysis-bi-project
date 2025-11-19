@@ -1,0 +1,2658 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/21/2025 4:32:26 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-BED2T6F"
+  DTS:CreatorName="DESKTOP-BED2T6F\DELL"
+  DTS:DTSID="{38811AA1-33E7-4CBF-9FED-0509619C20D5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="load_fact_table"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{22F6FCA7-8F28-4AAE-9E21-0B09137E478D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4272C8EF-7538-42DD-B349-4DE93DF76082}"
+      DTS:ObjectName="DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-BED2T6F\MASTERDB;Initial Catalog=Carrefour_BI_Warehouse;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-load_fact_table-{4272C8EF-7538-42DD-B349-4DE93DF76082}DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.PFE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0E2C2F9C-83E4-4115-90E7-43855C0EE73A}"
+      DTS:ObjectName="DESKTOP-BED2T6F\MASTERDB.PFE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-BED2T6F\MASTERDB;Initial Catalog=PFE;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-load_fact_table-{0E2C2F9C-83E4-4115-90E7-43855C0EE73A}DESKTOP-BED2T6F\MASTERDB.PFE;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load_fact_incidents"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D70BD9E3-9CE7-4C9B-97C7-9E9753BD77F9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_fact_incidents"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="A_Lookup for Date_ouverture_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Date_SK], [Date] FROM [Dim_Date]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Date_SK], [Date] FROM [Dim_Date]) [refTable]
+where [refTable].[Date] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Date_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Date" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Date]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input].Columns[Opening_Date]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Opening_Date"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Date]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Date</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Match Output].Columns[Date_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Match Output].Columns[Date_SK]"
+                      name="Date_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Date_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="B_Lookup for Temps_ouverture_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Temps_SK], [Heure] FROM [Dim_Temps]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Temps_SK], [Heure] FROM [Dim_Temps]) [refTable]
+where [refTable].[Heure] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Temps_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Heure" dataType="DT_WSTR" length="16" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Time]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input].Columns[Opening_Time]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="Opening_Time"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Time]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Heure</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]"
+                      name="Temps_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Temps_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="C_Lookup for Date_cloture_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Date_SK], [Date] FROM [Dim_Date]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Date_SK], [Date] FROM [Dim_Date]) [refTable]
+where [refTable].[Date] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Date_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Date" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Date_Cloture]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input].Columns[Date_Cloture]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Date_Cloture"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Date_Cloture]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Date</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Match Output].Columns[Date_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Match Output].Columns[Date_SK]"
+                      name="Date_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Date_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="D_Lookup for Temps_cloture_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Temps_SK], [Heure] FROM [Dim_Temps]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Temps_SK], [Heure] FROM [Dim_Temps]) [refTable]
+where [refTable].[Heure] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Temps_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Heure" dataType="DT_WSTR" length="16" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Heure_Cloture]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input].Columns[Heure_Cloture]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="Heure_Cloture"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Heure_Cloture]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Heure</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]"
+                      name="Temps_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Temps_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="E_Lookup for Emplacement_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Emplacement_SK], [Ville], [Type_magasin] 
+FROM [Dim_Emplacement]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Emplacement_SK], [Ville], [Type_magasin] 
+FROM [Dim_Emplacement]) [refTable]
+where [refTable].[Ville] = ? and [refTable].[Type_magasin] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Emplacement_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Ville" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Type_magasin" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[City]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Store_type]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="City"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[City]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Ville</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input].Columns[Store_type]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Store_type"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Store_type]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Type_magasin</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Match Output].Columns[Emplacement_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Match Output].Columns[Emplacement_SK]"
+                      name="Emplacement_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Emplacement_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="F_Lookup for Type_incident_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Type_SK], [Type_incident], [Domaine], [Sous_domaine], [Code_cloture]
+FROM [Dim_Type_Incident]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Type_SK], [Type_incident], [Domaine], [Sous_domaine], [Code_cloture]
+FROM [Dim_Type_Incident]) [refTable]
+where [refTable].[Type_incident] = ? and [refTable].[Domaine] = ? and [refTable].[Sous_domaine] = ? and [refTable].[Code_cloture] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Type_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Type_incident" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Domaine" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Sous_domaine" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code_cloture" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Incident_Type]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Domaine]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Sous-domaine]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Code Clôture]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input].Columns[Incident_Type]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Incident_Type"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Incident_Type]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Type_incident</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input].Columns[Domaine]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Domaine"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Domaine]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Domaine</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input].Columns[Sous-domaine]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sous-domaine"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Sous-domaine]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Sous_domaine</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input].Columns[Code Clôture]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Code Clôture"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Code Clôture]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Code_cloture</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Match Output].Columns[Type_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Match Output].Columns[Type_SK]"
+                      name="Type_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Type_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\G_Lookup for Statut_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="G_Lookup for Statut_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Statut_SK], [Etat_alerte], [Etat] FROM [Dim_Statut]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Statut_SK], [Etat_alerte], [Etat] FROM [Dim_Statut]) [refTable]
+where [refTable].[Etat_alerte] = ? and [refTable].[Etat] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Statut_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Etat_alerte" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Etat" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État de l'alerte]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input].Columns[État de l'alerte]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="État de l'alerte"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État de l'alerte]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Etat_alerte</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input].Columns[État]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="État"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Etat</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Match Output].Columns[Statut_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Match Output].Columns[Statut_SK]"
+                      name="Statut_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Statut_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\H_Lookup for Service_SK"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="H_Lookup for Service_SK"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [Service_SK], [Nom_service], [Groupe_resolu] FROM [Dim_Service]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT [Service_SK], [Nom_service], [Groupe_resolu] FROM [Dim_Service]) [refTable]
+where [refTable].[Nom_service] = ? and [refTable].[Groupe_resolu] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Service_SK" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Nom_service" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Groupe_resolu" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Service]};#{Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Groupe résolu]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input].Columns[Service]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Service"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Service]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Nom_service</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input].Columns[Groupe résolu]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Groupe résolu"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Groupe résolu]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Groupe_resolu</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="RedirectRow"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Match Output].Columns[Service_SK]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Match Output].Columns[Service_SK]"
+                      name="Service_SK"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Service_SK</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Fait_Incidents]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.Carrefour_BI_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Emplacement_SK]"
+                      cachedDataType="i4"
+                      cachedName="Emplacement_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Emplacement_SK]"
+                      lineageId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Match Output].Columns[Emplacement_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Statut_SK]"
+                      cachedDataType="i4"
+                      cachedName="Statut_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Statut_SK]"
+                      lineageId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Match Output].Columns[Statut_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Service_SK]"
+                      cachedDataType="i4"
+                      cachedName="Service_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Service_SK]"
+                      lineageId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Match Output].Columns[Service_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ID Incident]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ID Incident"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID_Incident]"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[ID Incident]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Titre]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Titre"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Titre]"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Titre]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Duration_Hours]"
+                      cachedDataType="numeric"
+                      cachedName="Duration_Hours"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Duree_Resolution_Heures]"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Duration_Hours]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Type_SK]"
+                      cachedDataType="i4"
+                      cachedName="Type_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Type_incident_SK]"
+                      lineageId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Match Output].Columns[Type_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Date_SK]"
+                      cachedDataType="i4"
+                      cachedName="Date_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_ouverture_SK]"
+                      lineageId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Match Output].Columns[Date_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Temps_SK]"
+                      cachedDataType="i4"
+                      cachedName="Temps_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Temps_ouverture_SK]"
+                      lineageId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Date_SK1]"
+                      cachedDataType="i4"
+                      cachedName="Date_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_cloture_SK]"
+                      lineageId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Match Output].Columns[Date_SK]" />
+                    <inputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Temps_SK1]"
+                      cachedDataType="i4"
+                      cachedName="Temps_SK"
+                      externalMetadataColumnId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Temps_cloture_SK]"
+                      lineageId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Match Output].Columns[Temps_SK]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Incident_SK]"
+                      dataType="i4"
+                      name="Incident_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID_Incident]"
+                      dataType="wstr"
+                      length="20"
+                      name="ID_Incident" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_ouverture_SK]"
+                      dataType="i4"
+                      name="Date_ouverture_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Temps_ouverture_SK]"
+                      dataType="i4"
+                      name="Temps_ouverture_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_cloture_SK]"
+                      dataType="i4"
+                      name="Date_cloture_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Temps_cloture_SK]"
+                      dataType="i4"
+                      name="Temps_cloture_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Duree_Resolution_Heures]"
+                      dataType="numeric"
+                      name="Duree_Resolution_Heures"
+                      precision="9"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Emplacement_SK]"
+                      dataType="i4"
+                      name="Emplacement_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Type_incident_SK]"
+                      dataType="i4"
+                      name="Type_incident_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Statut_SK]"
+                      dataType="i4"
+                      name="Statut_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Service_SK]"
+                      dataType="i4"
+                      name="Service_SK" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Titre]"
+                      dataType="wstr"
+                      length="255"
+                      name="Titre" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_fact_incidents\source dataset"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="source dataset"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    [ID Incident], [Titre], [Duration_Hours],
+    [Opening_Date], [Opening_Time],
+    [Date_Cloture], [Heure_Cloture],
+    [City], [Store_type],
+    [Incident_Type], [Domaine], [Sous-domaine], [Code Clôture],
+    [État de l'alerte], [État],
+    [Service], [Groupe résolu]
+FROM [PFE].[dbo].[dataset]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_fact_incidents\source dataset.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.PFE]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-BED2T6F\MASTERDB.PFE]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[ID Incident]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[ID Incident]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[ID Incident]"
+                      name="ID Incident"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Titre]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Titre]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Titre]"
+                      name="Titre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Duration_Hours]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Duration_Hours]"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Duration_Hours]"
+                      name="Duration_Hours"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Date]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Opening_Date]"
+                      length="10"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Date]"
+                      name="Opening_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Time]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Opening_Time]"
+                      length="16"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Opening_Time]"
+                      name="Opening_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Date_Cloture]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Date_Cloture]"
+                      length="10"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Date_Cloture]"
+                      name="Date_Cloture"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Heure_Cloture]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Heure_Cloture]"
+                      length="16"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Heure_Cloture]"
+                      name="Heure_Cloture"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Store_type]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Store_type]"
+                      length="50"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Store_type]"
+                      name="Store_type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Incident_Type]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Incident_Type]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Incident_Type]"
+                      name="Incident_Type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Domaine]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Domaine]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Domaine]"
+                      name="Domaine"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Sous-domaine]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Sous-domaine]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Sous-domaine]"
+                      name="Sous-domaine"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Code Clôture]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Code Clôture]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Code Clôture]"
+                      name="Code Clôture"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État de l'alerte]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[État de l'alerte]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État de l'alerte]"
+                      name="État de l'alerte"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[État]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[État]"
+                      name="État"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Service]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Service]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Service]"
+                      name="Service"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Groupe résolu]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Groupe résolu]"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].Columns[Groupe résolu]"
+                      name="Groupe résolu"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[ID Incident]"
+                      dataType="wstr"
+                      length="255"
+                      name="ID Incident" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Titre]"
+                      dataType="wstr"
+                      length="255"
+                      name="Titre" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Duration_Hours]"
+                      dataType="numeric"
+                      name="Duration_Hours"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Opening_Date]"
+                      dataType="wstr"
+                      length="10"
+                      name="Opening_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Opening_Time]"
+                      dataType="wstr"
+                      length="16"
+                      name="Opening_Time" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Date_Cloture]"
+                      dataType="wstr"
+                      length="10"
+                      name="Date_Cloture" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Heure_Cloture]"
+                      dataType="wstr"
+                      length="16"
+                      name="Heure_Cloture" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="255"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Store_type]"
+                      dataType="wstr"
+                      length="50"
+                      name="Store_type" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Incident_Type]"
+                      dataType="wstr"
+                      length="255"
+                      name="Incident_Type" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Domaine]"
+                      dataType="wstr"
+                      length="255"
+                      name="Domaine" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Sous-domaine]"
+                      dataType="wstr"
+                      length="255"
+                      name="Sous-domaine" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Code Clôture]"
+                      dataType="wstr"
+                      length="255"
+                      name="Code Clôture" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[État de l'alerte]"
+                      dataType="wstr"
+                      length="255"
+                      name="État de l'alerte" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[État]"
+                      dataType="wstr"
+                      length="255"
+                      name="État" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Service]"
+                      dataType="wstr"
+                      length="255"
+                      name="Service" />
+                    <externalMetadataColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output].ExternalColumns[Groupe résolu]"
+                      dataType="wstr"
+                      length="255"
+                      name="Groupe résolu" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ID Incident]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ID Incident]"
+                      name="ID Incident" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Titre]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Titre]"
+                      name="Titre" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Duration_Hours]"
+                      dataType="numeric"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Duration_Hours]"
+                      name="Duration_Hours"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Opening_Date]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Opening_Date]"
+                      name="Opening_Date" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Opening_Time]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Opening_Time]"
+                      name="Opening_Time" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Date_Cloture]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Date_Cloture]"
+                      name="Date_Cloture" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Heure_Cloture]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Heure_Cloture]"
+                      name="Heure_Cloture" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Store_type]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Store_type]"
+                      name="Store_type" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Incident_Type]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Incident_Type]"
+                      name="Incident_Type" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Domaine]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Domaine]"
+                      name="Domaine" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Sous-domaine]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Sous-domaine]"
+                      name="Sous-domaine" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Code Clôture]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Code Clôture]"
+                      name="Code Clôture" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[État de l'alerte]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[État de l'alerte]"
+                      name="État de l'alerte" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[État]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[État]"
+                      name="État" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Service]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Service]"
+                      name="Service" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Groupe résolu]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[Groupe résolu]"
+                      name="Groupe résolu" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output]"
+              endId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output1]"
+              endId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output2]"
+              endId="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output3]"
+              endId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output4]"
+              endId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\E_Lookup for Emplacement_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output5]"
+              endId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\F_Lookup for Type_incident_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output6]"
+              endId="Package\Load_fact_incidents\H_Lookup for Service_SK.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\G_Lookup for Statut_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[Lookup Match Output7]"
+              endId="Package\Load_fact_incidents\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_fact_incidents\H_Lookup for Service_SK.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_fact_incidents.Paths[OLE DB Source Output]"
+              endId="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load_fact_incidents\source dataset.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="173.333333333334,42.6666666666667"
+          Id="Package\Load_fact_incidents"
+          TopLeft="248.124988907948,124.149994080067" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load_fact_incidents">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="148,42.6666666666667"
+          Id="Package\Load_fact_incidents\source dataset"
+          TopLeft="54.8333333333333,5.49999999999993" />
+        <NodeLayout
+          Size="237.333333333334,42.6666666666667"
+          Id="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK"
+          TopLeft="10.1666666666666,108.166666666666" />
+        <NodeLayout
+          Size="246.666666666667,42.6666666666667"
+          Id="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK"
+          TopLeft="5.50000000000001,210.833333333333" />
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output]"
+          TopLeft="128.833333333333,150.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999998"
+              Start="0,0"
+              End="0,52.4999999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453124999999,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="224,42.6666666666667"
+          Id="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK"
+          TopLeft="16.8333333333333,313.499999999999" />
+        <NodeLayout
+          Size="233.333333333334,42.6666666666667"
+          Id="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK"
+          TopLeft="12.1666666666667,416.166666666666" />
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output1]"
+          TopLeft="128.833333333333,356.166666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999998"
+              Start="0,0"
+              End="0,52.4999999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453124999999,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="226.666666666667,58.6666666666667"
+          Id="Package\Load_fact_incidents\E_Lookup for Emplacement_SK"
+          TopLeft="15.5,518.833333333333" />
+        <NodeLayout
+          Size="192,42.6666666666667"
+          Id="Package\Load_fact_incidents\G_Lookup for Statut_SK"
+          TopLeft="32.8333333333334,740.166666666666" />
+        <NodeLayout
+          Size="198.666666666667,42.6666666666667"
+          Id="Package\Load_fact_incidents\H_Lookup for Service_SK"
+          TopLeft="29.5000000000001,842.833333333333" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load_fact_incidents\OLE DB Destination"
+          TopLeft="42.8333333333334,945.5" />
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output2]"
+          TopLeft="128.833333333333,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453124999999,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output3]"
+          TopLeft="128.833333333333,458.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453124999999,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[OLE DB Source Output]"
+          TopLeft="128.833333333333,48.1666666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="228,42.6666666666667"
+          Id="Package\Load_fact_incidents\F_Lookup for Type_incident_SK"
+          TopLeft="14.8333333333334,637.499999999999" />
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output4]"
+          TopLeft="128.833333333333,577.499999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125000001,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output5]"
+          TopLeft="128.833333333333,680.166666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125000001,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output6]"
+          TopLeft="128.833333333333,782.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.4453125000001,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_fact_incidents.Paths[Lookup Match Output7]"
+          TopLeft="128.833333333333,885.499999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-57.0600390625,18.2500000000001,114.120078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\source dataset">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\A_Lookup for Date_ouverture_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\B_Lookup for Temps_ouverture_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\C_Lookup for Date_cloture_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\D_Lookup for Temps_cloture_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\E_Lookup for Emplacement_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\G_Lookup for Statut_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\H_Lookup for Service_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_fact_incidents\F_Lookup for Type_incident_SK">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
