@@ -1,6 +1,6 @@
 # Incident Analysis BI Project
 
-A complete Business Intelligence solution designed to analyze IT and operational incidents across an international retail brand's stores in France. This project transforms raw incident data into a structured data warehouse and publishes a finished interactive dashboard built in Power BI. Due to confidentiality and data protection, the raw dataset, name of the brand, and PBIX file cannot be shared. However, all technical deliverables, screenshots, and a complete static export of the dashboard are included in this repository.
+A complete Business Intelligence solution built to analyze operational and IT incidents across a large retail network in France. Raw incident data is transformed into a fully modeled data warehouse and explored through a published Power BI dashboard. Due to confidentiality and data protection, the raw dataset, client name, and PBIX file cannot be shared. However, all technical deliverables, screenshots, and a complete static export of the dashboard are included in this repository.
 
 ---
 
@@ -9,9 +9,9 @@ A complete Business Intelligence solution designed to analyze IT and operational
 The client generates a large volume of incident tickets related to store equipment, operational systems, and payment terminals. Manual analysis was slow, reactive, and created limited visibility for Level 2 support teams. This project builds a full BI system to:
 
 - Centralize incident history into a SQL Server data warehouse  
-- Clean and standardize the dataset  
-- Automate loading through SSIS  
-- Apply dimensional modeling using a star schema  
+- Cleans and enriches raw data through SQL  
+- Uses SSIS for repeatable ETL operations  
+- Models the data using a star schema for high performance analytics  
 - Build a semantic SSAS Tabular model  
 - Publish a dashboard to Power BI service connected through a data gateway
 
@@ -25,11 +25,11 @@ The BI solution follows a classic three layer structure based on the Kimball met
 
 1. Extraction  
    - Raw incident exports from the client's system  
-   - Preprocessing and formatting using SQL Server and Excel
+   - Cleaning and transformation using SQL in SSMS
 
 2. Storage  
    - SQL Server Data Warehouse  
-   - Star schema design  
+   - Star schema dimensional modeling  
    - SSIS packages that load dimensions and fact tables
 
 3. Presentation  
@@ -42,9 +42,9 @@ The BI solution follows a classic three layer structure based on the Kimball met
 
 ## Data Preparation and Cleaning
 
-Main transformation steps included:
+Data quality issues were handled entirely through SQL scripts. Key operations included:
 
-- Imputing missing values in the "resolution_group" column where null values always matched "closed outside the helpdesk tool" logic
+- Imputing missing resolution groups based on logical relationships in the data
 - Removing duplicate incident rows based on matching identifiers
 - Standardizing categorical values including spelling variations and case inconsistencies
 - Normalizing French accented characters to avoid encoding issues
@@ -82,9 +82,9 @@ Contains:
 
 ETL flows were implemented with SSIS and include:
 
-- Multi-source merging for Dim_Date and Dim_Temps  
-- Sort and unique transformations  
-- Lookup transforms to resolve surrogate keys for fact records
+- Merge source data  
+- Clean and sort records  
+- Generate surrogate keys, and populate all tables.
 
 ---
 
@@ -184,7 +184,7 @@ The dashboard uncovered several major operational findings:
 - Clos Hors Outil group demonstrated strong efficiency with average resolution around 51 minutes  
 - SIAM Level 1 and Level 2 groups exceeded 97 minutes on average indicating more complex technical workload
 
-These findings guided recommendations for targeted support improvements, resource allocation, and equipment upgrades.
+These findings guided recommendations for better training or tooling for reporting workflows, resource allocation, equipment upgrades, improved preventive monitoring for payment hardware, and redistribution of support effort based on store type and peak workload periods.
 
 ---
 
