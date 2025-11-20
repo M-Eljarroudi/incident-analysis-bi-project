@@ -105,10 +105,10 @@ Deployment was performed to Power BI Premium and linked through an on premise da
 
 ## Final Dashboard (Static View)
 
-The finished static BI dashboard is available here:
+This is the main visual deliverable of the project. The finished static BI dashboard is available here:
 [View Static BI Dashboard](https://github.com/M-Eljarroudi/incident-analysis-bi-project/blob/main/Static-BI-dashboard.pdf)
 
-This is the main visual deliverable of the project.  
+  
 
 Below are screenshots captured from Power BI Service and Desktop. The images are stored within this repository and displayed inline.
 
