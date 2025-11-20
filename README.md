@@ -115,9 +115,9 @@ Below are screenshots captured from Power BI Service and Desktop. The images are
 ### Dashboard in Power BI Service
 
 ![Dashboard Cloud View](PBI_service_dashboard.jpg)
-
+### Model view in Power BI Service
 ![Model Lineage View](model_powerbi_service.jpg)
-
+### Gateway Configuration in Power BI Service
 ![Gateway Configuration](gateway_PBI_service.jpg)
 
 ### Dashboard in Power BI Desktop
